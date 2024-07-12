@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Counter from './app/features/Counter/counter'
 
+import './App.css'
+import AddPostForm from './app/features/post/AddPostForm'
+import PostsList from './app/features/post/PostsList'
 function App() {
 
   return (
     <>
-<Counter/>
+<PostsList/>
+<AddPostForm/>
+
     </>
   )
 }
