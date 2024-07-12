@@ -1,28 +1,26 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectAllPost } from './postSlice'
-import PostAuthor from './postAuthor'
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectAllPost } from "./postSlice";
+import PostAuthor from "./postAuthor";
+import TimeAgo from "./TimeAgo";
 function PostsList() {
-    const post = useSelector(selectAllPost)
-  const renderdPosts= post.map(post=>(
+
+  const posts = useSelector(selectAllPost);
+  const orderedPost = posts.slice().sort((a,b)=>b.date.localeCompare(a.date))
+  const renderdPosts = orderedPost.map((post) => (
     <article>
-        <h3>
-            {post.title}
-        </h3>
-        <PostAuthor userId={post.userId}/>
-        <p>
-            {post.content.substring(0,1000 )}
-        </p>
+      <h3>{post.title}</h3>
+      <p>{post.content.substring(0, 1000)}</p>
+      <PostAuthor userId={post.userId} />
+      <TimeAgo timestamp={post.date} />
     </article>
-  ))
-    return (
-        <section>
-            <h2>
-                Post
-            </h2>
-            {renderdPosts}
-        </section>
-  )
+  ));
+  return (
+    <section>
+      <h2>Post</h2>
+      {renderdPosts}
+    </section>
+  );
 }
 
-export default PostsList
+export default PostsList;

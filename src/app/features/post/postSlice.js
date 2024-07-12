@@ -6,13 +6,27 @@ const initialState = [
     id: "1",
     title: "Learning Redux Toolkit",
     content: "I heard good bout react native",
-    date: sub(new Date(), {minutes: 10}).toISOString()
+    date: sub(new Date(), {minutes: 10}).toISOString(),
+    reactions:{
+      thumbsUp:0,
+      Wow:0,
+      heart:0,
+      rocket:0,
+      coffee:0,
+    }
   },
   {
     id: "2",
     title: "Slices...",
     content: "The more I say slice, the more ",
-    date: sub(new Date(), {minutes: 5}).toISOString()
+    date: sub(new Date(), {minutes: 5}).toISOString(),
+    reactions:{
+      thumbsUp:0,
+      Wow:0,
+      heart:0,
+      rocket:0,
+      coffee:0,
+    }
 
   },
 ];
@@ -30,15 +44,29 @@ const postsSlice = createSlice({
                 id: nanoid(),
                 title,
                 content,
-    date: sub(new Date(), {minutes: 5}).toISOString(),
-                userId
+    date: sub(new Date(), {minutes: 0}).toISOString(),
+                userId,
+                reactions:{
+                  thumbsUp:0,
+                  Wow:0,
+                  heart:0,
+                  rocket:0,
+                  coffee:0,
+                }
             }
         }
     }
+    },
+    reactionAdded(state,action){
+      const{postId, reaction}=action.payload
+      const existingPost = state.find(post=>post.id === postId)
+      if(existingPost){
+        existingPost.reactions[reaction]++
+      }
     }
   },
 });
 
 export const selectAllPost = (state) => state.post;
-export const { postAdded } = postsSlice.actions;
+export const { reactionAdded,postAdded } = postsSlice.actions;
 export default postsSlice.reducer;
